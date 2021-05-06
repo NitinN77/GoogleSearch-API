@@ -25,7 +25,7 @@ def fetch():
     for i in range(len(images)):
         ret[i].append(images[i].get('src'))
     for i in range(len(links)):
-        ret[i].append(links[i].get('href'))
+        ret[i].append('https://news.google.com'+str(links[i].get('href'))[1:])
     return jsonify(ret) 
 
     
