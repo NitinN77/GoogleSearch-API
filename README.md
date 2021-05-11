@@ -19,6 +19,6 @@ python api.py
 {
   title,
   image,
-  link
+  article-link
 }
 ```
