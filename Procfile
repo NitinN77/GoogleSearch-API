@@ -1,1 +1,1 @@
-web: gunicorn api:dac-api
+web: gunicorn api:app
