@@ -44,6 +44,21 @@ def fetchpapers():
         except Exception as e:
             break
     return jsonify(ret)
+
+
+@app.route("/notebook", methods=['GET'])
+def fetchnotebook():
+    args = str(request.args['topic'])
+    ret = []
+    my_url = 'https://www.kaggle.com/uciml/iris'
+    uClient = ureq(my_url)
+    page_html = uClient.read()
+    uClient.close()
+
+    page_soup = Soup(page_html, "html.parser")
+    usability = page_soup.findAll("div", {"class": "sc-jxJyOx hlNUZf"})
+    
+
     
 
 
