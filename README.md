@@ -11,7 +11,7 @@ https://dac-api.herokuapp.com/papers
 ## Request news for a specific topic
 
 ```
-/topic="{topic}"
+?topic="{topic}"
 ```
 
 ## Output format
