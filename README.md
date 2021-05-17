@@ -1,4 +1,4 @@
-# Google-News-API
+# GoogleSearch-API
 Fetches article titles, images and links or research paper title, description and link for an entered search term
 
 ## Usage
