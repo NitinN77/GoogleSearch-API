@@ -32,32 +32,32 @@ def fetch():
     
 @app.route("/papers", methods=['GET'])
 def fetchpapers():
-    args = str(request.args['topic'])
-    ret = []
-    headers = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9'}
-    url = 'https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=' + args + '&btnG='
-    response=requests.get(url,headers=headers)
-    soup=Soup(response.content,'lxml')
-    for item in soup.select('[data-lid]'):
-        try:
-            ret.append({'title': item.select('h3')[0].get_text(), 'link': item.select('a')[0]['href'], 'desc': item.select('.gs_rs')[0].get_text()})
-        except Exception as e:
-            break
-    return jsonify(ret)
-
-
-@app.route("/notebook", methods=['GET'])
-def fetchnotebook():
-    args = str(request.args['topic'])
-    ret = []
-    my_url = 'https://www.kaggle.com/uciml/iris'
+    my_url = 'https://arxiv.org/search/?query=Data+Science&searchtype=all&source=header'
     uClient = ureq(my_url)
     page_html = uClient.read()
     uClient.close()
 
     page_soup = Soup(page_html, "html.parser")
-    usability = page_soup.findAll("div", {"class": "sc-jxJyOx hlNUZf"})
-    
+
+    titles = page_soup.findAll("p", {"class": "title is-5 mathjax"})
+
+    abstracts = page_soup.findAll("span", {"class": "abstract-full has-text-grey-dark mathjax"})
+    links = page_soup.findAll("p", {"class": "list-title is-inline-block"})
+
+    links_a = []
+    for i in range(len(links)):
+        links_a.append(str(links[i].findAll("a")[0]).split('''"'''))
+
+    ret = []
+    for i in range(len(titles)):
+        ret.append([titles[i].text.strip('\n').strip()])
+    for i in range(len(abstracts)):
+        ret[i].append(abstracts[i].text.strip('\n').strip())
+    for i in range(len(links_a)):
+        ret[i].append(links_a[i][1])
+    return jsonify(ret)
+
+
 
     
 
