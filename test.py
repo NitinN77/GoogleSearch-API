@@ -6,17 +6,20 @@ from bs4 import BeautifulSoup as Soup
 import requests
 
 #my_url = 'https://arxiv.org/search/?query='+args+'&searchtype=all&source=header'
-my_url = 'https://arxiv.org/search/?query=Data+Science&searchtype=all&source=header'
+my_url = 'https://github.com/Data-Analytics-Club-VITCC/Task2-Vehicle-Price-Prediction'
 uClient = ureq(my_url)
 page_html = uClient.read()
 uClient.close()
 
 page_soup = Soup(page_html, "html.parser")
 
-titles = page_soup.findAll("p", {"class": "title is-5 mathjax"})
-
-abstracts = page_soup.findAll("span", {"class": "abstract-full has-text-grey-dark mathjax"})
-links = page_soup.findAll("p", {"class": "list-title is-inline-block"})
-links_a = links[7].findAll("a")[0]
-links_a = str(links_a).split('''"''')
-print(links_a[1])
+title = page_soup.findAll("a", {"data-pjax": "#js-repo-pjax-container"})
+title = title[0].text
+about = page_soup.findAll("p", {"class": "f4 mt-3"})
+about = about[0].text.strip()
+lang = page_soup.findAll("span", {"class": "color-text-primary text-bold mr-1"})
+lang = lang[0].text
+star_count = page_soup.findAll("a", {"class": "social-count js-social-count"})
+star_count = star_count[0].text.strip()
+branch_count = page_soup.findAll("a", {"class": "Link--primary no-underline"})
+branch_count = branch_count[0].findAll("strong")[0].text
