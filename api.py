@@ -92,6 +92,7 @@ def fetchrepo():
         ret['lang'] = lang
         ret['star_count'] = star_count
         ret['branch_count'] = branch_count
+        ret['link'] = url
         ret_arr.append(ret)
 
     return jsonify(ret_arr)
