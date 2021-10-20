@@ -97,6 +97,22 @@ def fetchrepo():
 
     return jsonify(ret_arr)
 
+@app.route("/blogs", methods=["GET"])
+def fetchblogs():
+    ret_arr = []
+    my_url = 'https://medium.com/@dacvitcc'
+    headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36'}
+    r = requests.get(my_url,headers=headers)
+    page_soup = Soup(r.text, "html.parser")
+    titles = page_soup.findAll("a", {"class": "et ca"})
+    for i in range(len(titles)):
+        ret = {}
+        ret['title'] = titles[i].text
+        ret['img'] = page_soup.findAll("img", {"class":"af io ko"})[i]['src']
+        ret['readtime'] = page_soup.findAll("p", {"class":"be b bf bg hf"})[i].findAll("span")[0].text
+        ret_arr.append(ret)
+    return jsonify(ret_arr)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
