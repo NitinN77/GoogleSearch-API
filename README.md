@@ -35,3 +35,14 @@ https://dac-api.herokuapp.com/papers
   title,
 }
 ```
+
+### Blogs
+
+```
+{
+  img,
+  link,
+  readtime,
+  title
+}
+```
