@@ -108,6 +108,7 @@ def fetchblogs():
     for i in range(len(titles)):
         ret = {}
         ret['title'] = titles[i].text
+        ret['link'] = 'https://medium.com' + titles[i]['href']
         ret['img'] = page_soup.findAll("img", {"class":"af io ko"})[i]['src']
         ret['readtime'] = page_soup.findAll("p", {"class":"be b bf bg hf"})[i].findAll("span")[0].text
         ret_arr.append(ret)
