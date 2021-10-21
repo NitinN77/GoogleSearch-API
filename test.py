@@ -9,13 +9,12 @@ import requests
 ret_arr = []
 my_url = 'https://medium.com/@dacvitcc'
 
-headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36'}
-r = requests.get(my_url,headers=headers)
+r = requests.get(my_url)
 page_soup = Soup(r.text, "html.parser")
 titles = page_soup.findAll("a", {"class": "et ca"})
 title = titles[0].text
-intros = page_soup.findAll("img", {"class":"af io ko"})
-intro = intros[1]['src']
-readtime = page_soup.findAll("p", {"class":"be b bf bg hf"})
-readtime = readtime[1].findAll("span")
-print(readtime[0].text)
+intros = page_soup.findAll("img", {"class": "af io ky"})
+intro = intros[0]['src']
+# readtime = page_soup.findAll("p", {"class":"be b bf bg hf"})
+# readtime = readtime[1].findAll("span")
+print(intro)
