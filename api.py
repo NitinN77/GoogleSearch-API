@@ -79,7 +79,7 @@ def fetchrepo():
         title = title[0].text
         about = page_soup.findAll("p", {"class": "f4 mt-3"})
         about = about[0].text.strip()
-        lang = page_soup.findAll("span", {"class": "color-text-primary text-bold mr-1"})
+        lang = page_soup.findAll("span", {"class": "color-fg-default text-bold mr-1"})
         lang = lang[0].text
         star_count = page_soup.findAll("a", {"class": "social-count js-social-count"})
         star_count = int(star_count[0].text.strip())
@@ -108,7 +108,7 @@ def fetchblogs():
         ret = {}
         ret['title'] = titles[i].text
         ret['link'] = 'https://medium.com' + titles[i]['href']
-        ret['img'] = page_soup.findAll("img", {"class":"af io ky"})[i]['src']
+        ret['img'] = page_soup.findAll("img", {"class":"af io kw"})[i]['src']
         ret['readtime'] = page_soup.findAll("p", {"class":"be b bf bg hf"})[i].findAll("span")[0].text
         ret_arr.append(ret)
     return jsonify(ret_arr)
