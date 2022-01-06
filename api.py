@@ -75,23 +75,23 @@ def fetchrepo():
 
         page_soup = Soup(page_html, "html.parser")
 
-        title = page_soup.findAll("a", {"data-pjax": "#js-repo-pjax-container"})
+        title = page_soup.findAll("a", {"data-pjax": "#repo-content-pjax-container"})
         title = title[0].text
-        about = page_soup.findAll("p", {"class": "f4 mt-3"})
+        about = page_soup.findAll("p", {"class": "f4 my-3"})
         about = about[0].text.strip()
-        lang = page_soup.findAll("span", {"class": "color-fg-default text-bold mr-1"})
-        lang = lang[0].text
-        star_count = page_soup.findAll("a", {"class": "social-count js-social-count"})
-        star_count = int(star_count[0].text.strip())
-        branch_count = page_soup.findAll("a", {"class": "Link--primary no-underline"})
-        branch_count = int(branch_count[0].findAll("strong")[0].text)
+        try:
+            lang = page_soup.findAll("span", {"class": "color-fg-default text-bold mr-1"})
+            lang = lang[0].text
+        except:
+            lang = ''
+        star_count = page_soup.findAll("span", {"id": "repo-stars-counter-star"})
+        star_count = int(star_count[0].text)
 
         ret = {}
         ret['title'] = title
         ret['about'] = about
         ret['lang'] = lang
         ret['star_count'] = star_count
-        ret['branch_count'] = branch_count
         ret['link'] = url
         ret_arr.append(ret)
 
@@ -107,8 +107,8 @@ def fetchblogs():
     for i in range(len(titles)):
         ret = {}
         ret['title'] = titles[i].text
-        ret['link'] = 'https://medium.com' + titles[i]['href']
-        ret['img'] = page_soup.findAll("img", {"class":"af io kw"})[i]['src']
+        ret['link'] = 'https://dacvitcc.medium.com' + titles[i]['href']
+        ret['img'] = page_soup.findAll("img", {"class":"af io lj"})[i]['src']
         ret['readtime'] = page_soup.findAll("p", {"class":"be b bf bg hf"})[i].findAll("span")[0].text
         ret_arr.append(ret)
     return jsonify(ret_arr)
