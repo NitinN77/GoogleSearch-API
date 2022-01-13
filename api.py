@@ -78,7 +78,10 @@ def fetchrepo():
         title = page_soup.findAll("a", {"data-pjax": "#repo-content-pjax-container"})
         title = title[0].text
         about = page_soup.findAll("p", {"class": "f4 my-3"})
-        about = about[0].text.strip()
+        if about:
+            about = about[0].text.strip()
+        else:
+            about = ''
         try:
             lang = page_soup.findAll("span", {"class": "color-fg-default text-bold mr-1"})
             lang = lang[0].text
