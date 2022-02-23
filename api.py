@@ -109,14 +109,14 @@ def fetchblogs():
     my_url = 'https://medium.com/@dacvitcc'
     r = requests.get(my_url)
     page_soup = Soup(r.text, "html.parser")
-    titles = page_soup.findAll("a", {"class": "et ca"})
+    titles = page_soup.findAll("h2", {"class": "cg gc if ig ih ii gf ij ik il im gi in io ip iq gl ir is it iu go iv iw ix iy gr ha iz ja jb jc hm"})
     for i in range(len(titles)):
         ret = {}
         ret['title'] = titles[i].text
-        ret['link'] = 'https://medium.com' + titles[i]['href']
+        ret['link'] = 'https://medium.com/@dacvitcc' + page_soup.findAll("a", {"aria-label": "Post Preview Title"})[i]['href']
         ret['img'] = page_soup.findAll("img")[i]['src']
-        ret['readtime'] = page_soup.findAll("p", {"class":"be b bf bg hf"})[i].findAll("span")[0].text
-        ret['date'] = page_soup.findAll("p", {"class": "be b bf bg fe"})[i].text
+        ret['readtime'] = page_soup.findAll("p", {"class":"gb b jl hl dy"})[i].findAll("span")[0].text
+        ret['date'] = page_soup.findAll("p", {"class": "gb b hk hl dy"})[i].text
         ret_arr.append(ret)
     return jsonify(ret_arr)
 
